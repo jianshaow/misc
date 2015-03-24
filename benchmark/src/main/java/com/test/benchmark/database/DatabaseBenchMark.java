@@ -23,13 +23,6 @@ public class DatabaseBenchMark extends ConcurrentBenchmark {
         super(defaultThreadCount, defaultLoopCount);
     }
 
-    public static void main(String[] args) throws Exception {
-        int threadCount = Integer.valueOf(args[0]);
-        int loopCount = Integer.valueOf(args[1]);
-        final DatabaseBenchMark benchMark = new DatabaseBenchMark(threadCount, loopCount);
-        benchMark.execute();
-    }
-
     @Override
     protected void setUp() throws IOException {
         final Properties properties = new Properties();
@@ -72,8 +65,7 @@ public class DatabaseBenchMark extends ConcurrentBenchmark {
         }
 
         @Override
-        protected void execute(@SuppressWarnings("unused")
-        int requestSequence) {
+        protected void execute(@SuppressWarnings("unused") int requestSequence) {
             Statement stmt = null;
             ResultSet rs = null;
             try {
@@ -103,5 +95,12 @@ public class DatabaseBenchMark extends ConcurrentBenchmark {
                 }
             }
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        int threadCount = Integer.valueOf(args[0]);
+        int loopCount = Integer.valueOf(args[1]);
+        final DatabaseBenchMark benchMark = new DatabaseBenchMark(threadCount, loopCount);
+        benchMark.execute();
     }
 }

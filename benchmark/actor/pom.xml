@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.test.benchmark</groupId>
-    <artifactId>akka-benchmark</artifactId>
+    <artifactId>actor</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -32,23 +32,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.test.benchmark</groupId>
-            <artifactId>common-benchmark</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.test.benchmark</groupId>
-            <artifactId>actor</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-actor_2.11</artifactId>
-            <version>2.3.9</version>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-remote_2.11</artifactId>
             <version>2.3.9</version>
         </dependency>
         <dependency>

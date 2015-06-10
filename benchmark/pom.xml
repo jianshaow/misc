@@ -15,5 +15,7 @@
 	<module>http</module>
 	<module>akka</module>
 	<module>database</module>
+    <module>server</module>
+	<module>actor</module>
   </modules>
 </project>

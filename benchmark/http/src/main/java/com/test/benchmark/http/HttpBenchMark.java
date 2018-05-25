@@ -22,13 +22,13 @@ import org.apache.http.util.EntityUtils;
 import com.test.benchmark.BenchmarkTask;
 import com.test.benchmark.ConcurrentBenchmark;
 
-public class MicroServiceBenchMark extends ConcurrentBenchmark {
+public class HttpBenchMark extends ConcurrentBenchmark {
 
     private CloseableHttpClient httpclient;
 
     private String url;
 
-    public MicroServiceBenchMark(int defaultThreadCount, long defaultLoopCount, String url) {
+    public HttpBenchMark(int defaultThreadCount, long defaultLoopCount, String url) {
         super(defaultThreadCount, defaultLoopCount);
         this.url = url;
     }
@@ -64,16 +64,16 @@ public class MicroServiceBenchMark extends ConcurrentBenchmark {
         }
     }
 
+    @Override
+    protected void tearDown() throws Exception {
+        httpclient.close();
+    }
+
     public static void main(String[] args) throws Exception {
         int threadCount = Integer.valueOf(args[0]);
         int loopCount = Integer.valueOf(args[1]);
         String url = args[2];
-        final MicroServiceBenchMark benchMark = new MicroServiceBenchMark(threadCount, loopCount, url);
+        final HttpBenchMark benchMark = new HttpBenchMark(threadCount, loopCount, url);
         benchMark.execute();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        httpclient.close();
     }
 }

@@ -3,23 +3,23 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.test.benchmark</groupId>
-        <artifactId>benchmark-root</artifactId>
+        <groupId>com.test.btrace</groupId>
+        <artifactId>btrace-root</artifactId>
         <relativePath>../</relativePath>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>akka-benchmark</artifactId>
+    <artifactId>btrace-example</artifactId>
     <packaging>jar</packaging>
 
-    <name>akka</name>
+    <name>example</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
-        <finalName>akka-benchmark</finalName>
+        <finalName>btrace-example</finalName>
 
         <plugins>
             <plugin>
@@ -34,7 +34,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.test.benchmark.akka.AkkaRemoteCreationBenchMark</mainClass>
+                                    <mainClass>com.test.btrace.BTraceExample</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -46,28 +46,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.test.benchmark</groupId>
-            <artifactId>common-benchmark</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.test.benchmark</groupId>
-            <artifactId>actor</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor_2.11</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-remote_2.11</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 </project>

@@ -26,7 +26,8 @@ public class HttpBenchMark extends ConcurrentBenchmark {
 
     @Override
     protected void setUp() {
-        httpclient = HttpClients.custom().setMaxConnPerRoute(super.threadCount).setMaxConnTotal(super.threadCount)
+        httpclient = HttpClients.custom().setMaxConnPerRoute(super.getThreadCount())
+                .setMaxConnTotal(super.getThreadCount())
                 .build();
     }
 
@@ -61,10 +62,8 @@ public class HttpBenchMark extends ConcurrentBenchmark {
     }
 
     public static void main(String[] args) throws Exception {
-        int threadCount = Integer.valueOf(args[0]);
-        int loopCount = Integer.valueOf(args[1]);
-        String url = args[2];
-        final HttpBenchMark benchMark = new HttpBenchMark(threadCount, loopCount, url);
+        final String url = args[0];
+        final HttpBenchMark benchMark = new HttpBenchMark(10, 100, url);
         benchMark.execute();
     }
 }

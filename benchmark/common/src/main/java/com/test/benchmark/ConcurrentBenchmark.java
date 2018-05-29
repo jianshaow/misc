@@ -10,14 +10,14 @@ public abstract class ConcurrentBenchmark {
     public static final String THREAD_COUNT_NAME = "benchmark.thread.count";
     public static final String LOOP_COUNT_NAME = "benchmark.loop.count";
 
-    public int threadCount;
-    public long loopCount;
+    private int threadCount;
+    private long loopCount;
 
-    public CountDownLatch startLock;
-    public CountDownLatch finishLock;
+    private CountDownLatch startLock;
+    private CountDownLatch finishLock;
 
-    public Date startTime;
-    public int intervalMillis = 10 * 1000;
+    private long startTime;
+    private int interval = 10 * 1000;
 
     public ConcurrentBenchmark(int defaultThreadCount, long defaultLoopCount) {
         // merge default setting and system properties
@@ -26,7 +26,30 @@ public abstract class ConcurrentBenchmark {
 
         startLock = new CountDownLatch(threadCount);
         finishLock = new CountDownLatch(threadCount);
+    }
 
+    public CountDownLatch getStartLock() {
+        return startLock;
+    }
+
+    public CountDownLatch getFinishLock() {
+        return finishLock;
+    }
+
+    public int getInterval() {
+        return interval;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public int getThreadCount() {
+        return threadCount;
+    }
+
+    public long getLoopCount() {
+        return loopCount;
     }
 
     public void execute() throws Exception {
@@ -47,7 +70,7 @@ public abstract class ConcurrentBenchmark {
             startLock.await();
 
             // print start message
-            startTime = new Date();
+            startTime = System.currentTimeMillis();
             printStartMessage();
 
             // wait for all threads finish
@@ -67,22 +90,22 @@ public abstract class ConcurrentBenchmark {
         long invokeTimes = threadCount * loopCount;
 
         System.out.printf("%s started at %s.%n%d threads with %,d loops, totally %,d requests will be invoked.%n",
-                className, startTime.toString(), threadCount, loopCount, invokeTimes);
+                className, new Date(startTime).toString(), threadCount, loopCount, invokeTimes);
     }
 
     protected void printFinishMessage() {
-        Date endTime = new Date();
+        long endTime = System.currentTimeMillis();
         String className = this.getClass().getSimpleName();
         long invokeTimes = threadCount * loopCount;
-        long totalTimeMillis = endTime.getTime() - startTime.getTime();
+        long totalTimeMillis = endTime - startTime;
         long tps = (invokeTimes * 1000) / totalTimeMillis;
 
         System.out.printf("%s finished at %s.%n%d threads processed %,d requests after %,d ms, tps is %,d.%n",
-                className, endTime.toString(), threadCount, invokeTimes, totalTimeMillis, tps);
+                className, new Date(endTime).toString(), threadCount, invokeTimes, totalTimeMillis, tps);
     }
 
     protected void setIntervalSeconds(int intervalSeconds) {
-        this.intervalMillis = intervalSeconds * 1000;
+        this.interval = intervalSeconds * 1000;
     }
 
     /**
@@ -103,5 +126,4 @@ public abstract class ConcurrentBenchmark {
      * create a new benchmark task.
      */
     protected abstract BenchmarkTask createTask();
-
 }

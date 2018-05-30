@@ -2,16 +2,16 @@ package com.test.benchmark.akka;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import scala.concurrent.Await;
-import scala.concurrent.Future;
-import scala.concurrent.duration.Duration;
+import com.test.benchmark.BenchmarkTask;
+import com.test.benchmark.ConcurrentBenchmark;
+
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
-
-import com.test.benchmark.BenchmarkTask;
-import com.test.benchmark.ConcurrentBenchmark;
+import scala.concurrent.Await;
+import scala.concurrent.Future;
+import scala.concurrent.duration.Duration;
 
 public class AkkaRemoteCreationBenchMark extends ConcurrentBenchmark {
 
@@ -55,9 +55,7 @@ public class AkkaRemoteCreationBenchMark extends ConcurrentBenchmark {
     }
 
     public static void main(String[] args) throws Exception {
-        int threadCount = Integer.valueOf(args[0]);
-        int loopCount = Integer.valueOf(args[1]);
-        final AkkaRemoteCreationBenchMark benchMark = new AkkaRemoteCreationBenchMark(threadCount, loopCount);
+        final AkkaRemoteCreationBenchMark benchMark = new AkkaRemoteCreationBenchMark(10, 100);
         benchMark.execute();
     }
 

@@ -98,9 +98,7 @@ public class DatabaseBenchMark extends ConcurrentBenchmark {
     }
 
     public static void main(String[] args) throws Exception {
-        int threadCount = Integer.valueOf(args[0]);
-        int loopCount = Integer.valueOf(args[1]);
-        final DatabaseBenchMark benchMark = new DatabaseBenchMark(threadCount, loopCount);
+        final DatabaseBenchMark benchMark = new DatabaseBenchMark(10, 100);
         benchMark.execute();
     }
 }

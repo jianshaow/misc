@@ -1,15 +1,15 @@
 package com.test.benchmark.akka;
 
-import scala.concurrent.Await;
-import scala.concurrent.Future;
-import scala.concurrent.duration.Duration;
+import com.test.benchmark.BenchmarkTask;
+import com.test.benchmark.ConcurrentBenchmark;
+
 import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
-
-import com.test.benchmark.BenchmarkTask;
-import com.test.benchmark.ConcurrentBenchmark;
+import scala.concurrent.Await;
+import scala.concurrent.Future;
+import scala.concurrent.duration.Duration;
 
 public class AkkaRemoteLookupBenchMark extends ConcurrentBenchmark {
 
@@ -52,9 +52,7 @@ public class AkkaRemoteLookupBenchMark extends ConcurrentBenchmark {
     }
 
     public static void main(String[] args) throws Exception {
-        int threadCount = Integer.valueOf(args[0]);
-        int loopCount = Integer.valueOf(args[1]);
-        final AkkaRemoteLookupBenchMark benchMark = new AkkaRemoteLookupBenchMark(threadCount, loopCount);
+        final AkkaRemoteLookupBenchMark benchMark = new AkkaRemoteLookupBenchMark(10, 100);
         benchMark.execute();
     }
 

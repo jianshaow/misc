@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jee="http://www.springframework.org/schema/jee" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:jaxrs-client="http://cxf.apache.org/jaxrs-client"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+        http://cxf.apache.org/jaxrs-client http://cxf.apache.org/schemas/jaxrs-client.xsd"
+    default-lazy-init="true">
+
+    <bean id="sender" class="zipkin2.reporter.beans.OkHttpSenderFactoryBean" destroy-method="destroy">
+        <property name="endpoint" value="http://localhost:9411/api/v2/spans" />
+    </bean>
+
+    <bean id="asyncReporter" class="zipkin2.reporter.beans.AsyncReporterFactoryBean" destroy-method="destroy">
+        <property name="sender" ref="sender" />
+        <property name="closeTimeout" value="500" />
+    </bean>
+
+    <bean id="defaultCurrentTraceContext" class="brave.propagation.CurrentTraceContext.Default" factory-method="create" />
+
+    <bean id="mdcCurrentTraceContext" class="brave.context.slf4j.MDCCurrentTraceContext" factory-method="create">
+        <constructor-arg ref="defaultCurrentTraceContext" />
+    </bean>
+
+    <bean id="tracing" class="brave.spring.beans.TracingFactoryBean" destroy-method="destroy">
+        <property name="localServiceName" value="echo-service" />
+        <property name="spanReporter" ref="asyncReporter" />
+        <!-- <property name="spanReporter" value="#{T(zipkin2.reporter.Reporter).CONSOLE}" /> -->
+        <property name="currentTraceContext" ref="mdcCurrentTraceContext" />
+    </bean>
+
+    <bean id="httpTracing" class="brave.spring.beans.HttpTracingFactoryBean">
+        <property name="tracing" ref="tracing" />
+    </bean>
+
+    <bean id="zipkinTraceFilter" class="brave.servlet.TracingFilter" factory-method="create">
+        <constructor-arg>
+            <ref bean="httpTracing" />
+        </constructor-arg>
+    </bean>
+
+    <bean id="braveFeature" class="org.apache.cxf.tracing.brave.BraveFeature">
+        <constructor-arg>
+            <ref bean="httpTracing" />
+        </constructor-arg>
+    </bean>
+
+    <jaxrs:server id="echoServiceServer" address="/">
+        <jaxrs:serviceBeans>
+            <ref bean="echoService" />
+            <ref bean="auralService" />
+            <ref bean="mindService" />
+            <ref bean="speakService" />
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
+        </jaxrs:providers>
+        <jaxrs:features>
+            <!-- <ref bean="braveFeature" /> -->
+        </jaxrs:features>
+    </jaxrs:server>
+
+    <bean id="braveClientFeature" class="org.apache.cxf.tracing.brave.BraveClientFeature">
+        <constructor-arg>
+            <ref bean="httpTracing" />
+        </constructor-arg>
+    </bean>
+
+    <jaxrs-client:client id="auralServiceClient" address="http://localhost:8080/" serviceClass="com.test.zipkin.AuralService"
+        threadSafe="true">
+        <jaxrs-client:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
+        </jaxrs-client:providers>
+        <jaxrs-client:features>
+            <ref bean="braveClientFeature" />
+        </jaxrs-client:features>
+    </jaxrs-client:client>
+
+    <jaxrs-client:client id="mindServiceClient" address="http://localhost:8080/" serviceClass="com.test.zipkin.MindService"
+        threadSafe="true">
+        <jaxrs-client:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
+        </jaxrs-client:providers>
+        <jaxrs-client:features>
+            <ref bean="braveClientFeature" />
+        </jaxrs-client:features>
+    </jaxrs-client:client>
+
+    <jaxrs-client:client id="speakServiceClient" address="http://localhost:8080/" serviceClass="com.test.zipkin.SpeakService"
+        threadSafe="true">
+        <jaxrs-client:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
+        </jaxrs-client:providers>
+        <jaxrs-client:features>
+            <ref bean="braveClientFeature" />
+        </jaxrs-client:features>
+    </jaxrs-client:client>
+
+    <bean id="echoService" class="com.test.zipkin.impl.EchoServiceImpl">
+        <property name="auralService" ref="auralServiceClient" />
+        <property name="mindService" ref="mindServiceClient" />
+        <property name="speakService" ref="speakServiceClient" />
+    </bean>
+
+    <bean id="auralService" class="com.test.zipkin.impl.AuralServiceImpl" />
+    <bean id="mindService" class="com.test.zipkin.impl.MindServiceImpl">
+        <property name="template" ref="jdbcTemplate" />
+    </bean>
+    <bean id="speakService" class="com.test.zipkin.impl.SpeakServiceImpl" />
+
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName">
+            <value>jdbc/test.ds</value>
+        </property>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+</beans>

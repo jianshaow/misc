@@ -11,7 +11,9 @@
 
     <modules>
         <module>p6spy-config</module>
+        <module>echo-service</module>
         <module>zipkin-example</module>
+        <module>jaeger-example</module>
     </modules>
 
     <properties>
@@ -90,6 +92,11 @@
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-rs-client</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-management</artifactId>
                 <version>${cxf.version}</version>
             </dependency>
             <dependency>

@@ -7,6 +7,10 @@ import javax.ws.rs.Path;
 public interface MindService {
 
     @POST
+    @Path("/recall")
+    String recall(String something);
+
+    @POST
     @Path("/respond")
     String respond(String msg);
 }

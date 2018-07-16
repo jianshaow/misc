@@ -14,12 +14,15 @@
         <module>echo-service</module>
         <module>zipkin-example</module>
         <module>jaeger-example</module>
+        <module>opentracing-example</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <brave.version>5.1.1</brave.version>
         <zipkin-reporter.version>2.7.6</zipkin-reporter.version>
+        <jaeger.version>0.30.1</jaeger.version>
+        <open-tracing.version>0.30.0</open-tracing.version>
         <cxf.version>3.1.12</cxf.version>
         <spring.version>4.3.9.RELEASE</spring.version>
     </properties>
@@ -67,6 +70,28 @@
                 <version>${zipkin-reporter.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jaegertracing</groupId>
+                <artifactId>jaeger-client</artifactId>
+                <version>${jaeger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.opentracing</groupId>
+                <artifactId>opentracing-api</artifactId>
+                <version>${open-tracing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.opentracing</groupId>
+                <artifactId>opentracing-util</artifactId>
+                <version>${open-tracing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.opentracing</groupId>
+                <artifactId>opentracing-v030</artifactId>
+                <version>0.0.4</version>
             </dependency>
 
             <dependency>

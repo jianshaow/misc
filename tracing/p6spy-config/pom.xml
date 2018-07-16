@@ -13,11 +13,4 @@
 
     <name>p6spy-config</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>io.zipkin.brave</groupId>
-            <artifactId>brave-instrumentation-p6spy</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 </project>

@@ -2,6 +2,16 @@
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd">
 
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
+    <Call class="java.lang.Class" name="forName">
+        <Arg>oracle.jdbc.driver.OracleDriver</Arg>
+    </Call>
+    <Call id="db_usr" class="java.lang.System" name="getProperty">
+        <Arg>db_usr</Arg>
+    </Call>
+    <Call id="db_pwd" class="java.lang.System" name="getProperty">
+        <Arg>db_pwd</Arg>
+    </Call>
+
     <New class="org.eclipse.jetty.plus.jndi.Resource">
         <Arg>jdbc/test.ds</Arg>
         <Arg>
@@ -10,9 +20,9 @@
                  <Set name="driverClass">oracle.jdbc.driver.OracleDriver</Set>
                  -->
                 <Set name="driverClass">io.opentracing.contrib.jdbc.TracingDriver</Set>
-                <Set name="jdbcUrl">jdbc:tracing:oracle:thin:@localhost:1521:ece</Set>
-                <Set name="user">oracle_10_175_186_74</Set>
-                <Set name="password">oracle_10_175_186_74</Set>
+                <Set name="jdbcUrl">jdbc:tracing:oracle:thin:@localhost:1521:sep</Set>
+                <Set name="user">IAM_ECE2240_ECE</Set>
+                <Set name="password">IAM_ECE2240_ECE</Set>
                 <Set name="initialPoolSize">1</Set>
                 <Set name="maxPoolSize">1</Set>
                 <Set name="preferredTestQuery">select 1 from dual</Set>

@@ -10,11 +10,44 @@
         http://cxf.apache.org/jaxrs-client http://cxf.apache.org/schemas/jaxrs-client.xsd"
     default-lazy-init="true">
 
-    <bean id="builder" class="io.jaegertracing.internal.JaegerTracer.Builder">
-        <constructor-arg value="echo-service" />
+    <bean id="metrics" class="com.uber.jaeger.metrics.Metrics">
+        <constructor-arg index="0">
+            <bean class="com.uber.jaeger.metrics.StatsFactoryImpl">
+                <constructor-arg index="0">
+                    <bean class="com.uber.jaeger.metrics.NullStatsReporter" />
+                </constructor-arg>
+            </bean>
+        </constructor-arg>
     </bean>
 
-    <bean id="tracer" factory-bean="builder" factory-method="build" />
+    <bean id="sender" class="com.uber.jaeger.senders.HttpSender">
+        <constructor-arg value="http://localhost:14268/api/traces" />
+    </bean>
+
+    <bean id="reporter" class="com.uber.jaeger.reporters.RemoteReporter">
+        <constructor-arg index="0" ref="sender" />
+        <constructor-arg index="1" value="1000" />
+        <constructor-arg index="2" value="100" />
+        <constructor-arg index="3" ref="metrics" />
+    </bean>
+
+    <bean id="builder" class="com.uber.jaeger.Tracer.Builder">
+        <constructor-arg value="echo-service" />
+        <constructor-arg index="1" ref="reporter" />
+        <constructor-arg index="2">
+            <bean class="com.uber.jaeger.samplers.ConstSampler">
+                <constructor-arg index="0" value="true" />
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <bean id="tracer" factory-bean="builder" factory-method="build" /> 
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="false">
+        <property name="targetClass" value="io.opentracing.util.GlobalTracer" />
+        <property name="targetMethod" value="register" />
+        <property name="arguments" ref="tracer" />
+    </bean>
 
     <bean id="tracingFeature" class="org.apache.cxf.tracing.opentracing.OpenTracingFeature">
         <constructor-arg ref="tracer" />

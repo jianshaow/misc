@@ -14,7 +14,7 @@
                  <Set name="driverClass">oracle.jdbc.driver.OracleDriver</Set>
                  -->
                 <Set name="driverClass">io.opentracing.contrib.jdbc.TracingDriver</Set>
-                <Set name="jdbcUrl">jdbc:tracing:oracle:thin:@localhost:1521:ece?traceWithActiveSpanOnly=true</Set>
+                <Set name="jdbcUrl">jdbc:tracing:oracle:thin:@localhost:1521:ece</Set>
                 <Set name="user">oracle_10_175_186_74</Set>
                 <Set name="password">oracle_10_175_186_74</Set>
                 <Set name="initialPoolSize">1</Set>

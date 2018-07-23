@@ -25,27 +25,40 @@
         <constructor-arg ref="defaultCurrentTraceContext" />
     </bean>
 
-    <bean id="tracing" class="brave.spring.beans.TracingFactoryBean" destroy-method="destroy">
-        <property name="localServiceName" value="echo-service" />
+    <bean id="server-tracing" class="brave.spring.beans.TracingFactoryBean" destroy-method="destroy">
+        <property name="localServiceName" value="echo-service-server" />
         <property name="spanReporter" ref="asyncReporter" />
         <!-- <property name="spanReporter" value="#{T(zipkin2.reporter.Reporter).CONSOLE}" /> -->
         <property name="currentTraceContext" ref="mdcCurrentTraceContext" />
     </bean>
 
-    <bean id="httpTracing" class="brave.spring.beans.HttpTracingFactoryBean">
-        <property name="tracing" ref="tracing" />
+    <bean id="server-httpTracing" class="brave.spring.beans.HttpTracingFactoryBean">
+        <property name="tracing" ref="server-tracing" />
     </bean>
 
-    <bean id="zipkinTraceFilter" class="brave.servlet.TracingFilter" factory-method="create">
-        <constructor-arg ref="httpTracing" />
+    <bean id="client-tracing" class="brave.spring.beans.TracingFactoryBean" destroy-method="destroy">
+        <property name="localServiceName" value="echo-service-client" />
+        <property name="spanReporter" ref="asyncReporter" />
+        <!-- <property name="spanReporter" value="#{T(zipkin2.reporter.Reporter).CONSOLE}" /> -->
+        <property name="currentTraceContext" ref="mdcCurrentTraceContext" />
     </bean>
+
+    <bean id="client-httpTracing" class="brave.spring.beans.HttpTracingFactoryBean">
+        <property name="tracing" ref="client-tracing" />
+    </bean>
+
+    <!-- 
+    <bean id="zipkinTraceFilter" class="brave.servlet.TracingFilter" factory-method="create">
+        <constructor-arg ref="server-httpTracing" />
+    </bean>
+     -->
 
     <bean id="braveFeature" class="org.apache.cxf.tracing.brave.BraveFeature">
-        <constructor-arg ref="httpTracing" />
+        <constructor-arg ref="server-httpTracing" />
     </bean>
     
     <bean id ="braveContextProvider" class="org.apache.cxf.tracing.brave.jaxrs.BraveContextProvider">
-        <constructor-arg ref="httpTracing" />
+        <constructor-arg ref="server-httpTracing" />
     </bean>
 
     <jaxrs:server id="echoServiceServer" address="/">
@@ -66,7 +79,7 @@
 
     <bean id="braveClientFeature" class="org.apache.cxf.tracing.brave.BraveClientFeature">
         <constructor-arg>
-            <ref bean="httpTracing" />
+            <ref bean="client-httpTracing" />
         </constructor-arg>
     </bean>
 

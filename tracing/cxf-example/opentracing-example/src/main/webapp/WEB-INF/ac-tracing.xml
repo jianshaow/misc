@@ -42,94 +42,21 @@
 
     <bean id="tracer" factory-bean="builder" factory-method="build" />
 
-<!-- 
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="false">
         <property name="targetClass" value="io.opentracing.util.GlobalTracer" />
         <property name="targetMethod" value="register" />
         <property name="arguments" ref="tracer" />
     </bean>
- -->
 
     <bean id="tracingFeature" class="org.apache.cxf.tracing.opentracing.OpenTracingFeature">
         <constructor-arg ref="tracer" />
     </bean>
 
-    <bean id="contextProvider" class="org.apache.cxf.tracing.opentracing.jaxrs.OpenTracingContextProvider">
+    <bean id="tracingContextProvider" class="org.apache.cxf.tracing.opentracing.jaxrs.OpenTracingContextProvider">
         <constructor-arg ref="tracer" />
     </bean>
-
-    <jaxrs:server id="echoServiceServer" address="/">
-        <jaxrs:serviceBeans>
-            <ref bean="echoService" />
-            <ref bean="auralService" />
-            <ref bean="mindService" />
-            <ref bean="speakService" />
-        </jaxrs:serviceBeans>
-        <jaxrs:providers>
-            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
-            <ref bean="contextProvider" />
-        </jaxrs:providers>
-        <jaxrs:features>
-            <ref bean="tracingFeature" />
-        </jaxrs:features>
-    </jaxrs:server>
 
     <bean id="tracingClientFeature" class="org.apache.cxf.tracing.opentracing.OpenTracingClientFeature">
         <constructor-arg ref="tracer" />
-    </bean>
-
-    <jaxrs-client:client id="auralServiceClient" address="http://localhost:8080/" serviceClass="com.test.zipkin.AuralService"
-        threadSafe="true">
-        <jaxrs-client:providers>
-            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
-        </jaxrs-client:providers>
-        <jaxrs-client:features>
-            <ref bean="tracingClientFeature" />
-        </jaxrs-client:features>
-    </jaxrs-client:client>
-
-    <jaxrs-client:client id="mindServiceClient" address="http://localhost:8080/" serviceClass="com.test.zipkin.MindService"
-        threadSafe="true">
-        <jaxrs-client:providers>
-            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
-        </jaxrs-client:providers>
-        <jaxrs-client:features>
-            <ref bean="tracingClientFeature" />
-        </jaxrs-client:features>
-    </jaxrs-client:client>
-
-    <jaxrs-client:client id="speakServiceClient" address="http://localhost:8080/" serviceClass="com.test.zipkin.SpeakService"
-        threadSafe="true">
-        <jaxrs-client:providers>
-            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
-        </jaxrs-client:providers>
-        <jaxrs-client:features>
-            <ref bean="tracingClientFeature" />
-        </jaxrs-client:features>
-    </jaxrs-client:client>
-
-    <bean id="echoService" class="com.test.zipkin.impl.EchoServiceImpl">
-        <property name="auralService" ref="auralServiceClient" />
-        <property name="speakService" ref="speakServiceClient" />
-    </bean>
-
-    <bean id="auralService" class="com.test.zipkin.impl.AuralServiceImpl">
-        <property name="mindService" ref="mindServiceClient" />
-    </bean>
-    <bean id="speakService" class="com.test.zipkin.impl.SpeakServiceImpl">
-        <property name="mindService" ref="mindServiceClient" />
-    </bean>
-    <bean id="mindService" class="com.test.zipkin.impl.MindServiceImpl">
-        <property name="template" ref="jdbcTemplate" />
-    </bean>
-
-    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName">
-            <value>jdbc/test.ds</value>
-        </property>
-    </bean>
-
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource"></property>
     </bean>
 </beans>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd"
+    default-lazy-init="true">
+
+    <bean id="echoService" class="com.test.zipkin.impl.EchoServiceImpl">
+        <property name="auralService" ref="auralServiceClient" />
+        <property name="speakService" ref="speakServiceClient" />
+    </bean>
+
+    <bean id="auralService" class="com.test.zipkin.impl.AuralServiceImpl">
+        <property name="mindService" ref="mindServiceClient" />
+    </bean>
+    <bean id="speakService" class="com.test.zipkin.impl.SpeakServiceImpl">
+        <property name="mindService" ref="mindServiceClient" />
+    </bean>
+    <bean id="mindService" class="com.test.zipkin.impl.MindServiceImpl">
+        <property name="template" ref="jdbcTemplate" />
+    </bean>
+</beans>

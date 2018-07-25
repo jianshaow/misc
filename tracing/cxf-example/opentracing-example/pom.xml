@@ -33,10 +33,6 @@
             <version>0.22.1</version>
             <exclusions>
                 <exclusion>
-                    <groupId>io.zipkin.brave</groupId>
-                    <artifactId>brave</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>io.opentracing</groupId>
                     <artifactId>opentracing-api</artifactId>
                 </exclusion>
@@ -45,64 +41,34 @@
 
         <dependency>
             <groupId>io.zipkin.brave</groupId>
+            <artifactId>brave</artifactId>
+            <version>${legacy.brave.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.zipkin.brave</groupId>
             <artifactId>brave-instrumentation-servlet</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.zipkin.brave</groupId>
-                    <artifactId>brave</artifactId>
-                </exclusion>
-            </exclusions>
             <version>${legacy.brave.version}</version>
         </dependency>
         <dependency>
             <groupId>io.zipkin.brave</groupId>
             <artifactId>brave-instrumentation-http</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.zipkin.brave</groupId>
-                    <artifactId>brave</artifactId>
-                </exclusion>
-            </exclusions>
             <version>${legacy.brave.version}</version>
         </dependency>
         <dependency>
             <groupId>io.zipkin.brave</groupId>
             <artifactId>brave-spring-beans</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.zipkin.brave</groupId>
-                    <artifactId>brave</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.zipkin.reporter2</groupId>
-                    <artifactId>zipkin-reporter</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.zipkin.zipkin2</groupId>
-                    <artifactId>zipkin</artifactId>
-                </exclusion>
-            </exclusions>
             <version>${legacy.brave.version}</version>
         </dependency>
         <dependency>
             <groupId>io.zipkin.brave</groupId>
             <artifactId>brave-context-slf4j</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.zipkin.brave</groupId>
-                    <artifactId>brave</artifactId>
-                </exclusion>
-            </exclusions>
             <version>${legacy.brave.version}</version>
         </dependency>
         <dependency>
             <groupId>io.zipkin.reporter2</groupId>
-            <artifactId>zipkin-sender-okhttp3</artifactId>
+            <artifactId>zipkin-reporter</artifactId>
             <exclusions>
-                <exclusion>
-                    <groupId>io.zipkin.reporter2</groupId>
-                    <artifactId>zipkin-reporter</artifactId>
-                </exclusion>
                 <exclusion>
                     <groupId>io.zipkin.zipkin2</groupId>
                     <artifactId>zipkin</artifactId>
@@ -112,12 +78,19 @@
         </dependency>
         <dependency>
             <groupId>io.zipkin.reporter2</groupId>
-            <artifactId>zipkin-reporter-spring-beans</artifactId>
+            <artifactId>zipkin-sender-okhttp3</artifactId>
+            <version>${legacy.reporter.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>io.zipkin.reporter2</groupId>
-                    <artifactId>zipkin-reporter</artifactId>
+                    <groupId>io.zipkin.zipkin2</groupId>
+                    <artifactId>zipkin</artifactId>
                 </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.zipkin.reporter2</groupId>
+            <artifactId>zipkin-reporter-spring-beans</artifactId>
+            <exclusions>
                 <exclusion>
                     <groupId>io.zipkin.zipkin2</groupId>
                     <artifactId>zipkin</artifactId>
@@ -211,11 +184,6 @@
                         <groupId>io.opentracing</groupId>
                         <artifactId>opentracing-util</artifactId>
                         <version>${open-tracing.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>io.zipkin.brave</groupId>
-                        <artifactId>brave</artifactId>
-                        <version>${legacy.brave.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>

@@ -7,7 +7,10 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            WEB-INF/applicationContext.xml
+            WEB-INF/ac-tracing.xml,
+            WEB-INF/ac-db.xml,
+            WEB-INF/ac-rest.xml,
+            WEB-INF/ac-service.xml
         </param-value>
     </context-param>
 

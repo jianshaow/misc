@@ -14,7 +14,8 @@
         <property name="endpoint" value="http://localhost:9411/api/v2/spans" />
     </bean>
 
-    <bean id="asyncReporter" class="brave.spring.beans.AsyncReporterFactoryBean" destroy-method="destroy">
+    <bean id="asyncReporter" class="zipkin2.reporter.beans.AsyncReporterFactoryBean" destroy-method="destroy">
+        <property name="encoder" value="#{T(zipkin2.codec.SpanBytesEncoder).JSON_V2}" />
         <property name="sender" ref="sender" />
         <property name="closeTimeout" value="500" />
     </bean>

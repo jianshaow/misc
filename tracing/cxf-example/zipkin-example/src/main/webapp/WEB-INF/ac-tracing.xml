@@ -48,7 +48,7 @@
     </bean>
 
     <!-- 
-    <bean id="zipkinTraceFilter" class="brave.servlet.TracingFilter" factory-method="create">
+    <bean id="tracingFilter" class="brave.servlet.TracingFilter" factory-method="create">
         <constructor-arg ref="server-httpTracing" />
     </bean>
      -->

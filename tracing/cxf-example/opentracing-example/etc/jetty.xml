@@ -20,9 +20,9 @@
                  <Set name="driverClass">oracle.jdbc.driver.OracleDriver</Set>
                  -->
                 <Set name="driverClass">io.opentracing.contrib.jdbc.TracingDriver</Set>
-                <Set name="jdbcUrl">jdbc:tracing:oracle:thin:@localhost:1521:sep</Set>
-                <Set name="user">IAM_ECE2240_ECE</Set>
-                <Set name="password">IAM_ECE2240_ECE</Set>
+                <Set name="jdbcUrl">jdbc:tracing:oracle:thin:@localhost:1521:sep?traceWithActiveSpanOnly=true</Set>
+                <Set name="user"><Ref id="db_usr" /></Set>
+                <Set name="password"><Ref id="db_pwd" /></Set>
                 <Set name="initialPoolSize">1</Set>
                 <Set name="maxPoolSize">1</Set>
                 <Set name="preferredTestQuery">select 1 from dual</Set>

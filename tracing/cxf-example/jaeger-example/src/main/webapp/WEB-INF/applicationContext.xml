@@ -73,12 +73,17 @@
         </jaxrs:features>
     </jaxrs:server>
 
+    <bean id="tracingClientFeature" class="org.apache.cxf.tracing.opentracing.OpenTracingClientFeature">
+        <constructor-arg ref="tracer" />
+    </bean>
+
     <jaxrs-client:client id="auralServiceClient" address="http://localhost:8080/" serviceClass="com.test.zipkin.AuralService"
         threadSafe="true">
         <jaxrs-client:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
         </jaxrs-client:providers>
         <jaxrs-client:features>
+            <ref bean="tracingClientFeature" />
         </jaxrs-client:features>
     </jaxrs-client:client>
 
@@ -88,6 +93,7 @@
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
         </jaxrs-client:providers>
         <jaxrs-client:features>
+            <ref bean="tracingClientFeature" />
         </jaxrs-client:features>
     </jaxrs-client:client>
 
@@ -97,6 +103,7 @@
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
         </jaxrs-client:providers>
         <jaxrs-client:features>
+            <ref bean="tracingClientFeature" />
         </jaxrs-client:features>
     </jaxrs-client:client>
 

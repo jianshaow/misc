@@ -1,4 +1,4 @@
-package com.test.zipkin.impl;
+package com.test.tracing.impl;
 
 import javax.ws.rs.core.Context;
 
@@ -6,8 +6,8 @@ import org.apache.cxf.tracing.TracerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.test.zipkin.AuralService;
-import com.test.zipkin.MindService;
+import com.test.tracing.AuralService;
+import com.test.tracing.MindService;
 
 public class AuralServiceImpl implements AuralService {
 

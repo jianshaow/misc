@@ -1,4 +1,4 @@
-package com.test.zipkin.impl;
+package com.test.tracing.impl;
 
 import java.util.Random;
 

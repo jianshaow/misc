@@ -4,18 +4,18 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd"
     default-lazy-init="true">
 
-    <bean id="echoService" class="com.test.zipkin.impl.EchoServiceImpl">
+    <bean id="echoService" class="com.test.tracing.impl.EchoServiceImpl">
         <property name="auralService" ref="auralServiceClient" />
         <property name="speakService" ref="speakServiceClient" />
     </bean>
 
-    <bean id="auralService" class="com.test.zipkin.impl.AuralServiceImpl">
+    <bean id="auralService" class="com.test.tracing.impl.AuralServiceImpl">
         <property name="mindService" ref="mindServiceClient" />
     </bean>
-    <bean id="speakService" class="com.test.zipkin.impl.SpeakServiceImpl">
+    <bean id="speakService" class="com.test.tracing.impl.SpeakServiceImpl">
         <property name="mindService" ref="mindServiceClient" />
     </bean>
-    <bean id="mindService" class="com.test.zipkin.impl.MindServiceImpl">
+    <bean id="mindService" class="com.test.tracing.impl.MindServiceImpl">
         <property name="template" ref="jdbcTemplate" />
     </bean>
 </beans>

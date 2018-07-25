@@ -1,4 +1,4 @@
-package com.test.zipkin;
+package com.test.tracing;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

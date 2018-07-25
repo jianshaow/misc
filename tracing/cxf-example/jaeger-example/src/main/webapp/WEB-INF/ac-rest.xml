@@ -22,7 +22,7 @@
         </jaxrs:features>
     </jaxrs:server>
 
-    <jaxrs-client:client id="auralServiceClient" address="http://localhost:8080/" serviceClass="com.test.zipkin.AuralService"
+    <jaxrs-client:client id="auralServiceClient" address="http://localhost:8080/" serviceClass="com.test.tracing.AuralService"
         threadSafe="true">
         <jaxrs-client:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
@@ -32,7 +32,7 @@
         </jaxrs-client:features>
     </jaxrs-client:client>
 
-    <jaxrs-client:client id="mindServiceClient" address="http://localhost:8080/" serviceClass="com.test.zipkin.MindService"
+    <jaxrs-client:client id="mindServiceClient" address="http://localhost:8080/" serviceClass="com.test.tracing.MindService"
         threadSafe="true">
         <jaxrs-client:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
@@ -42,7 +42,7 @@
         </jaxrs-client:features>
     </jaxrs-client:client>
 
-    <jaxrs-client:client id="speakServiceClient" address="http://localhost:8080/" serviceClass="com.test.zipkin.SpeakService"
+    <jaxrs-client:client id="speakServiceClient" address="http://localhost:8080/" serviceClass="com.test.tracing.SpeakService"
         threadSafe="true">
         <jaxrs-client:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />

@@ -1,4 +1,4 @@
-package com.test.zipkin.impl;
+package com.test.tracing.impl;
 
 import javax.ws.rs.core.Context;
 
@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.test.zipkin.MindService;
+import com.test.tracing.MindService;
 
 public class MindServiceImpl implements MindService {
 

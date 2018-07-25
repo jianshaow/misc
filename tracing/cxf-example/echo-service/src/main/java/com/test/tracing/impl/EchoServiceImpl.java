@@ -1,11 +1,11 @@
-package com.test.zipkin.impl;
+package com.test.tracing.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.test.zipkin.AuralService;
-import com.test.zipkin.EchoService;
-import com.test.zipkin.SpeakService;
+import com.test.tracing.AuralService;
+import com.test.tracing.EchoService;
+import com.test.tracing.SpeakService;
 
 public class EchoServiceImpl implements EchoService {
 

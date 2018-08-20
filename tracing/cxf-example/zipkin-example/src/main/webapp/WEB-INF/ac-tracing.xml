@@ -47,12 +47,6 @@
         <property name="tracing" ref="client-tracing" />
     </bean>
 
-    <!-- 
-    <bean id="tracingFilter" class="brave.servlet.TracingFilter" factory-method="create">
-        <constructor-arg ref="server-httpTracing" />
-    </bean>
-     -->
-
     <bean id="tracingFeature" class="org.apache.cxf.tracing.brave.BraveFeature">
         <constructor-arg ref="server-httpTracing" />
     </bean>

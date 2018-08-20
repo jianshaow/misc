@@ -43,11 +43,11 @@
 
     <bean id="tracer" factory-bean="builder" factory-method="build" />
 
-    <!-- 
-    <bean id="tracingFilter" class="io.opentracing.contrib.web.servlet.filter.TracingFilter">
-        <constructor-arg ref="tracer" />
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="false">
+        <property name="targetClass" value="io.opentracing.util.GlobalTracer" />
+        <property name="targetMethod" value="register" />
+        <property name="arguments" ref="tracer" />
     </bean>
-     -->
 
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="false">
         <property name="targetClass" value="io.opentracing.util.GlobalTracer" />

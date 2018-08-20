@@ -2,7 +2,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-	<parent>
+    <parent>
         <groupId>com.test.tracing</groupId>
         <artifactId>tracing-root</artifactId>
         <relativePath>../</relativePath>
@@ -22,29 +22,12 @@
     </modules>
 
     <properties>
-        <brave.version>5.1.1</brave.version>
-        <zipkin-reporter.version>2.7.6</zipkin-reporter.version>
         <open-tracing.version>0.30.0</open-tracing.version>
-        <cxf.version>3.1.12</cxf.version>
+        <jaeger.version>0.21.0</jaeger.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>io.zipkin.brave</groupId>
-                <artifactId>brave-bom</artifactId>
-                <version>${brave.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.zipkin.reporter2</groupId>
-                <artifactId>zipkin-reporter-bom</artifactId>
-                <version>${zipkin-reporter.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <dependency>
                 <groupId>io.jaegertracing</groupId>
                 <artifactId>jaeger-client</artifactId>

@@ -58,6 +58,6 @@ public class AkkaRemoteLookupBenchMark extends ConcurrentBenchmark {
 
     @Override
     protected void tearDown() throws Exception {
-        this.system.shutdown();
+        this.system.terminate();
     }
 }

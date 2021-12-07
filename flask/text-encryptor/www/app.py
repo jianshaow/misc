@@ -10,7 +10,9 @@ def index():
 
 @app.route('/encode', methods=['POST'])
 def encode():
-    string = request.args.get("content")
+    print(request.json)
+    string = request.json['text']
+    print(string)
     encoded = []
     for c in string:
         n = chr(ord(c)+10)
@@ -20,7 +22,7 @@ def encode():
 
 @app.route('/decode', methods=['POST'])
 def decode():
-    string = request.args.get("content")
+    string = request.json['text']
     encoded = []
     for c in string:
         n = chr(ord(c)-10)

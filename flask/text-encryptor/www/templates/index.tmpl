@@ -1,42 +1,33 @@
 <html>
 
   <head>
-    <title>我想对你说</title>
+    <title>I want to tell you</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
   </head>
 
   <style>
     .table {
       display: table;
-      border-collapse: collapse;
-      font-size: 20px;
     }
 
     .row {
       display: table-row;
-      border-bottom: 1px solid black;
-    }
-
-    .privacy-row {
-      display: table-row;
-      border-bottom: 1px solid black;
-      font-weight: bold;
-      color: red;
     }
 
     .column {
       display: table-cell;
-      width: 50%;
+      vertical-align: middle;
     }
   </style>
 
   <body>
-    <div>
-        我想对你说：
-        <form action="/">
-          <textarea name="content" cols=50 rows=10></textarea>
-          <input type="submit" />
-        </form>
-      </h2>
+    <div class="table">
+      <div class="row">I want to tell you：</div>
+      <div class="row">
+        <div class="column"><textarea id="whatisaid" cols=50 rows=10></textarea></div>
+        <div class="column"><button>-></button></div>
+        <div class="column"><textarea id="decoded" cols=50 rows=10></textarea></div>
+      </div>
     </div>
   </body>
 

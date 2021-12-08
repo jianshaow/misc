@@ -2,11 +2,14 @@ from flask import Flask, request, render_template
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger('history')
-logger.setLevel(logging.INFO)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+his_logger = logging.getLogger('history')
+his_logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 
+offset = 0x1000
 
 @app.route('/', methods=['GET'])
 def index():
@@ -18,10 +21,14 @@ def encode():
     string = request.json['text']
     encoded = []
     for c in string:
-        n = chr(ord(c) + 10)
+        n = c
+        order = ord(c)
+        if 0x4e00 <= order <= 0x9fa5:
+            n = chr(order - offset)
         encoded.append(n)
+        logger.debug('%s(%d) to %s(%d)', c, ord(c), n, ord(n))
     result = ''.join(encoded)
-    logger.info(string + ' -> ' + result)
+    his_logger.info('%s -> %s', string, result)
     return result
 
 
@@ -30,10 +37,14 @@ def decode():
     string = request.json['text']
     encoded = []
     for c in string:
-        n = chr(ord(c) - 10)
+        n = c
+        order = ord(c)
+        if 0x4e00 - offset <= order <= 0x9fa5 - offset:
+            n = chr(order + offset)
         encoded.append(n)
+        logger.debug('%s(%d) to %s(%d)', c, ord(c), n, ord(n))
     result = ''.join(encoded)
-    logger.info(string + ' -> ' + result)
+    his_logger.info('%s -> %s', string, result)
     return result
 
 

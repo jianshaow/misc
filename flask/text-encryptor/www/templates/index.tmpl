@@ -4,25 +4,37 @@
     <title>I want to tell you</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
-    $.ajaxSetup({contentType: "application/json; charset=utf-8"});
-    $(document).ready(function(){
-      $("button#encode").click(function() {
-        $.post("encode", JSON.stringify({ text: $("textarea#whatysaid").val() }), function(data, status) {
-          $("textarea#encoded").text(data)
+      $.ajaxSetup({contentType: "application/json; charset=utf-8"});
+      $(document).ready(function(){
+        $("button#encode").click(function() {
+          $.post("encode", JSON.stringify({ text: $("textarea#whatysaid").val() }), function(data, status) {
+            $("textarea#encoded").text(data)
+          });
+        });
+        $("button#decode").click(function() {
+          $.post("decode", JSON.stringify({ text: $("textarea#whatisaid").val() }), function(data, status) {
+            $("textarea#decoded").text(data)
+          });
         });
       });
-      $("button#decode").click(function() {
-        $.post("decode", JSON.stringify({ text: $("textarea#whatisaid").val() }), function(data, status) {
-          $("textarea#decoded").text(data)
-        });
-      });
-    });
     </script>
   </head>
 
   <style>
+    body {
+      background: url({{ url_for('static', filename='background.jpg') }}) no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed;
+      background-color: #b0c4de;
+    }
+
+    textarea{
+      background: transparent;
+    }
+
     .table {
       display: table;
+      margin: auto;
     }
 
     .row {
@@ -36,18 +48,20 @@
   </style>
 
   <body>
-    <div class="table">
-      <div class="row">I want to tell you：</div>
-      <div class="row">
-        <div class="column"><textarea id="whatisaid" cols=50 rows=10></textarea></div>
-        <div class="column"><button id="decode">-></button></div>
-        <div class="column"><textarea id="decoded" cols=50 rows=10></textarea></div>
-      </div>
-      <div class="row">what do you want to tell me：</div>
-      <div class="row">
-        <div class="column"><textarea id="whatysaid" cols=50 rows=10></textarea></div>
-        <div class="column"><button id="encode">-></button></div>
-        <div class="column"><textarea id="encoded" cols=50 rows=10></textarea></div>
+    <div>
+      <div class="table">
+        <div class="row">I want to tell you：</div>
+        <div class="row">
+          <div class="column"><textarea id="whatisaid" cols=50 rows=10></textarea></div>
+          <div class="column"><button id="decode">-></button></div>
+          <div class="column"><textarea id="decoded" cols=50 rows=10></textarea></div>
+        </div>
+        <div class="row">what do you want to tell me：</div>
+        <div class="row">
+          <div class="column"><textarea id="whatysaid" cols=50 rows=10></textarea></div>
+          <div class="column"><button id="encode">-></button></div>
+          <div class="column"><textarea id="encoded" cols=50 rows=10></textarea></div>
+        </div>
       </div>
     </div>
   </body>

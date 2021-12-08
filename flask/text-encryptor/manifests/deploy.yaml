@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: text-encryptor
+  namespace: encryptor
+spec:
+  selector:
+    matchLabels:
+      app: text-encryptor
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: text-encryptor
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: main
+        image: jianshao/text-encryptor:0.0.1
+        ports:
+        - containerPort: 5000
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: text-encryptor
+  labels:
+    app: text-encryptor
+  namespace: encryptor
+spec:
+  ports:
+  - name: http
+    port: 5000
+  selector:
+    app: text-encryptor

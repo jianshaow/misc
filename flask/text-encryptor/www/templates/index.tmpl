@@ -8,12 +8,20 @@
       $(document).ready(function(){
         $("button#encode").click(function() {
           $.post("encode", JSON.stringify({ text: $("textarea#whatysaid").val() }), function(data, status) {
+            $("textarea#encoded").css("visibility", "visible");
             $("textarea#encoded").text(data)
+            setTimeout(function(){
+              $("textarea#encoded").css("visibility", "hidden");
+            }, 2000);
           });
         });
         $("button#decode").click(function() {
           $.post("decode", JSON.stringify({ text: $("textarea#whatisaid").val() }), function(data, status) {
+            $("textarea#decoded").css("visibility", "visible");
             $("textarea#decoded").text(data)
+            setTimeout(function(){
+              $("textarea#decoded").css("visibility", "hidden");
+            }, 3000);
           });
         });
       });
@@ -45,6 +53,11 @@
       display: table-cell;
       vertical-align: middle;
     }
+
+    .hidden {
+      #display: none;
+      visibility: hidden;
+    }
   </style>
 
   <body>
@@ -54,13 +67,13 @@
         <div class="row">
           <div class="column"><textarea id="whatisaid" cols=50 rows=10></textarea></div>
           <div class="column"><button id="decode">-></button></div>
-          <div class="column"><textarea id="decoded" cols=50 rows=10></textarea></div>
+          <div class="column"><textarea class="hidden" id="decoded" cols=50 rows=10></textarea></div>
         </div>
         <div class="row">what do you want to tell me：</div>
         <div class="row">
           <div class="column"><textarea id="whatysaid" cols=50 rows=10></textarea></div>
           <div class="column"><button id="encode">-></button></div>
-          <div class="column"><textarea id="encoded" cols=50 rows=10></textarea></div>
+          <div class="column"><textarea class="hidden" id="encoded" cols=50 rows=10></textarea></div>
         </div>
       </div>
     </div>

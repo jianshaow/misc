@@ -33,6 +33,9 @@ spec:
       - name: image-volume
         configMap:
           name: image-cm
+          items:
+          - key: angle.gif
+            path: angle.gif
 ---
 apiVersion: v1
 kind: Service

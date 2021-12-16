@@ -27,8 +27,9 @@ spec:
             cpu: 10m
             memory: 100Mi
         volumeMounts:
-          - mountPath: /www/static
+          - mountPath: /www/static/angle.gif
             name: image-volume
+            subPath: angle.gif
       volumes:
       - name: image-volume
         configMap:

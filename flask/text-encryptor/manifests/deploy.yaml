@@ -16,7 +16,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: main
-        image: jianshao/text-encryptor:0.0.3
+        image: jianshao/text-encryptor:0.0.4
         ports:
         - containerPort: 5000
         resources:
@@ -26,6 +26,13 @@ spec:
           requests:
             cpu: 10m
             memory: 100Mi
+        volumeMounts:
+          - mountPath: /www/static
+            name: image-volume
+      volumes:
+      - name: image-volume
+        configMap:
+          name: image-cm
 ---
 apiVersion: v1
 kind: Service

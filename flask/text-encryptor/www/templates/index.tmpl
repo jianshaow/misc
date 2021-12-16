@@ -7,6 +7,7 @@
     <script>
       $.ajaxSetup({contentType: "application/json; charset=utf-8"});
       $(document).ready(function() {
+        flyImage()
 
         $("button#encode").click(function() {
           $.post("encode", JSON.stringify({ text: $("textarea#whatysaid").val() }), function(data, status) {

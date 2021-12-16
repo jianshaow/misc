@@ -1,4 +1,4 @@
-$(function () {
+function flyImage() {
     var windowheight = $(window).height();
     var imgheight = $("img").height();
     var windowwidth = $(window).width();
@@ -37,4 +37,4 @@ $(function () {
     timer = setInterval(function () {
         move()
     }, 100);
-})
+}

@@ -5,7 +5,7 @@ metadata:
   namespace: encryptor
 spec:
   rules:
-  - host: chenlin.bestcoder.top
+  - host: *.bestcoder.top
     http:
       paths:
       - path: /

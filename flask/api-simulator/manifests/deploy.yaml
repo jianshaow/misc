@@ -16,7 +16,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: main
-        image: jianshao/api-simulator:0.0.1
+        image: jianshao/api-simulator:0.0.2
         ports:
         - containerPort: 5000
         resources:
@@ -27,12 +27,13 @@ spec:
             cpu: 10m
             memory: 100Mi
         volumeMounts:
-          - mountPath: /data/resp-body
+          - mountPath: /www/templates
             name: resp-body-volume
       volumes:
       - name: resp-body-volume
         configMap:
           name: resp-body
+          optional: true
 ---
 apiVersion: v1
 kind: Service

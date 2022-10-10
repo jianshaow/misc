@@ -1,4 +1,4 @@
 {
   "GET": "success",
-  "external": true
+  "args": "{{args}}"
 }

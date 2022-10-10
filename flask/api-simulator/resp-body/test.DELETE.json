@@ -1,3 +1,4 @@
 {
-  "DELETE": "success"
+  "DELETE": "success",
+  "external": true
 }

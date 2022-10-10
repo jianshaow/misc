@@ -1,3 +1,4 @@
 {
-  "POST": "success"
+  "POST": "success",
+  "external": true
 }

@@ -6,7 +6,7 @@ docker push jianshao/api-simulator:0.0.2
 
 ~~~ shell
 docker run -d --name api-simulator --rm -p 5000:5000 jianshao/api-simulator:0.0.2
-curl http://localhost:5000/mock-api/test?msg=hello
+curl http://localhost:5000/mock-api/test
 docker stop
 docker run -d --name api-simulator --rm -p 5000:5000 -v $PWD/resp-body:/www/templates jianshao/api-simulator:0.0.2
 curl http://localhost:5000/mock-api/test

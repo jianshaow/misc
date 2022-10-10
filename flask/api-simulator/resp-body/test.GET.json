@@ -1,4 +1,5 @@
 {
   "GET": "success",
+  "host_url": "{{request.host_url}}",
   "external": true
 }

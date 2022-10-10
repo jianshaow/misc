@@ -1,4 +1,4 @@
 {
   "GET": "success",
-  "args": "{{args}}"
+  "host_url": "{{request.host_url}}"
 }

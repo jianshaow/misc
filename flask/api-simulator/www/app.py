@@ -21,7 +21,7 @@ def mock(api):
 
 def get_resp_body(api, request):
     resp_body_templ = '{}.{}.json'.format(api, request.method)
-    return render_template(resp_body_templ, args=request.args)
+    return render_template(resp_body_templ, request=request)
 
 
 if __name__ == '__main__':

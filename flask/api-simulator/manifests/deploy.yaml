@@ -27,12 +27,12 @@ spec:
             cpu: 10m
             memory: 100Mi
         volumeMounts:
-          - mountPath: /www/resp-body
+          - mountPath: /data/resp-body
             name: resp-body-volume
       volumes:
       - name: resp-body-volume
         configMap:
-          name: sim-resp-body
+          name: resp-body
 ---
 apiVersion: v1
 kind: Service

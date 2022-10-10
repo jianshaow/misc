@@ -13,7 +13,7 @@ his_logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 
-resp_body_dir = '/www/resp_body'
+resp_body_dir = '/data/resp-body'
 
 
 @app.route('/api-simulate')
@@ -32,5 +32,5 @@ def get_resp_body(api):
 
 
 if __name__ == '__main__':
-    resp_body_dir = (len(sys.argv) == 2 and sys.argv[1] or "/www/resp_body")
+    resp_body_dir = (len(sys.argv) == 2 and sys.argv[1] or resp_body_dir)
     app.run(debug=True, host="0.0.0.0")

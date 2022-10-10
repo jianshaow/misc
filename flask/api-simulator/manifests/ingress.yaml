@@ -8,7 +8,7 @@ spec:
   - host: dev.bestcoder.top
     http:
       paths:
-      - path: /api-simulator
+      - path: /api-simulate
         pathType: Prefix
         backend:
           service:

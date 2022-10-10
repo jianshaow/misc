@@ -8,25 +8,22 @@ from flask import Flask, request
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-his_logger = logging.getLogger('history')
-his_logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 
 resp_body_dir = '/data/resp-body'
 
 
-@app.route('/api-simulate')
-def simulate():
-    api = request.args['api']
+@app.route('/mock-api/<api>', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def mock(api):
+    body = get_resp_body(api, request.method)
+    logger.info('request body -> %s', request.get_data(as_text=True))
+    logger.info('return body -> %s', body)
+    return body
 
-    result = get_resp_body(api)
-    his_logger.info('%s -> %s', result, result)
-    return result
 
-
-def get_resp_body(api):
-    resp_body = os.path.join(resp_body_dir, '%s.json' % api)
+def get_resp_body(api, method):
+    resp_body = os.path.join(resp_body_dir, '{}.{}.json'.format(api, method))
     with open(resp_body, 'r') as resp_body_json:
         return json.load(resp_body_json)
 

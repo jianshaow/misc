@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-simulator
+  namespace: simulator
+spec:
+  selector:
+    matchLabels:
+      app: api-simulator
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: api-simulator
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: main
+        image: jianshao/api-simulator:0.0.1
+        ports:
+        - containerPort: 5000
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 100Mi
+        volumeMounts:
+          - mountPath: /www/resp-body
+            name: resp-body-volume
+      volumes:
+      - name: resp-body-volume
+        configMap:
+          name: sim-resp-body
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-simulator
+  labels:
+    app: api-simulator
+  namespace: simulator
+spec:
+  ports:
+  - name: http
+    port: 5000
+  selector:
+    app: api-simulator

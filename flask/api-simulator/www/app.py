@@ -9,26 +9,35 @@ logger.setLevel(logging.DEBUG)
 
 app = Flask(__name__)
 
+suffix_mapping = {'application/json': 'json',
+                  'application/xml': 'xml', 'text/plain': 'txt', 'text/html': 'html'}
+
 
 @app.route('/mock-api/<api>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def mock(api):
-    body, status = get_resp_body(api, request)
-    logger.info('request body -> %s', request.get_data(as_text=True))
-    logger.info('return body -> %s', body)
+    body, content_type, status = get_resp_body(api, request)
+    request.accept_mimetypes
+    logger.info('request body:\n%s', request.get_data(as_text=True))
+    logger.info('return body:\n%s', body)
     response = make_response(body, status)
-    response.content_type = 'application/json'
+    response.content_type = content_type
     return response
 
 
 def get_resp_body(api, request):
+    accept_header = request.accept_mimetypes.to_header()
+    suffix = suffix_mapping.get(accept_header, 'json')
+    resp_body_tmpl = '{}.{}.{}'.format(api, request.method, suffix)
     status = 200
-    resp_body_tmpl = '{}.{}.json'.format(api, request.method)
+    content_type = accept_header
     try:
         resp_body = render_template(resp_body_tmpl, request=request)
     except TemplateNotFound:
-        resp_body = ""
+        resp_body = '{{"error": "no this api mockup with accept type {}"}}\n'.format(
+            accept_header)
+        content_type = 'application/json'
         status = 404
-    return resp_body, status
+    return resp_body, content_type, status
 
 
 if __name__ == '__main__':

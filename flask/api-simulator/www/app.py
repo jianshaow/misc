@@ -33,7 +33,7 @@ def get_resp_body(api, request):
     try:
         resp_body = render_template(resp_body_tmpl, request=request)
     except TemplateNotFound:
-        resp_body = '{{"error": "no api mockup \'{}\' with type \'{}\"\'"}}\n'.format(
+        resp_body = '{{"error": "no api mockup \'{}\' with type \'{}\'"}}\n'.format(
             api, accept_header)
         content_type = 'application/json'
         status = 404

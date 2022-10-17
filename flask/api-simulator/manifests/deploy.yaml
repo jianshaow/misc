@@ -16,7 +16,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: main
-        image: jianshao/api-simulator:latest
+        image: jianshao/api-simulator:0.0.3
         ports:
         - containerPort: 5000
         resources:

@@ -17,5 +17,4 @@ kubectl -nsimulator delete cm resp-body
 kubectl -nsimulator create cm resp-body --from-file=resp-body/
 
 kubectl apply -f manifests/deploy.yaml
-kubectl apply -f manifests/ingress.yaml
 ~~~

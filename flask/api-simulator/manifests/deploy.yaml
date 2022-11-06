@@ -16,7 +16,11 @@ spec:
       restartPolicy: Always
       containers:
       - name: main
-        image: jianshao/api-simulator:0.0.3
+        image: jianshao/api-simulator:0.0.4
+        envFrom:
+        - configMapRef:
+            name: env-cm
+            optional: true
         ports:
         - containerPort: 5000
         resources:

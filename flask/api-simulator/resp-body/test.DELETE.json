@@ -1,4 +1,4 @@
 {
-  "DELETE": "success",
-  "external": true
+  "expected_method": "DELETE",
+  "overrided": true
 }

@@ -1,4 +1,4 @@
 {
-  "POST": "success",
-  "external": true
+  "expected_method": "POST",
+  "overrided": true
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Body>
-  <GET>success</GET>
+  <expected_method>DELETE</expected_method>
   <host_url>{{request.host_url}}</host_url>
+  <external_scheme>{{context.external_scheme}}</external_scheme>
+  <external_host>{{context.external_host}}</external_host>
 </Body>

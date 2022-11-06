@@ -1,4 +1,4 @@
 {
-  "PUT": "success",
-  "external": true
+  "expected_method": "PUT",
+  "overrided": true
 }

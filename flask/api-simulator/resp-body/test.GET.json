@@ -1,5 +1,7 @@
 {
-  "GET": "success",
+  "expected_method": "GET",
   "host_url": "{{request.host_url}}",
-  "external": true
+  "external_scheme": "{{context.external_scheme}}",
+  "external_host": "{{context.external_host}}",
+  "overrided": true
 }

@@ -1,6 +1,6 @@
 
 ~~~ shell
-export image_ver=0.0.3
+export image_ver=0.0.4
 docker build -t jianshao/api-simulator:$image_ver .
 docker push jianshao/api-simulator:$image_ver
 

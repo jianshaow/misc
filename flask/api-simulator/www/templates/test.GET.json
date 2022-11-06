@@ -1,4 +1,6 @@
 {
-  "GET": "success",
-  "host_url": "{{request.host_url}}"
+  "expected_method": "GET",
+  "host_url": "{{request.host_url}}",
+  "external_scheme": "{{context.external_scheme}}",
+  "external_host": "{{context.external_host}}"
 }

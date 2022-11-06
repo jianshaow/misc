@@ -4,4 +4,4 @@ metadata:
   name: env-cm
   namespace: simulator
 data:
-  SCHEME: https
+  EXTERNAL_SCHEME: https

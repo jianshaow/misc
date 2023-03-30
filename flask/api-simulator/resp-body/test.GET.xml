@@ -2,6 +2,9 @@
 <Body>
   <expected_method>GET</expected_method>
   <host_url>{{request.host_url}}</host_url>
+  <path>{{request.path}}</path>
+  <group>{{context.group}}</group>
+  <api>{{context.api}}</api>
   <external_scheme>{{context.external_scheme}}</external_scheme>
   <external_host>{{context.external_host}}</external_host>
   <overrided>true</overrided>

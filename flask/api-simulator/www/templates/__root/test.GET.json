@@ -1,6 +1,9 @@
 {
   "expected_method": "GET",
   "host_url": "{{request.host_url}}",
+  "path": "{{request.path}}",
+  "group": "{{context.group}}",
+  "api": "{{context.api}}",
   "external_scheme": "{{context.external_scheme}}",
   "external_host": "{{context.external_host}}"
 }

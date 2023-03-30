@@ -1,0 +1,5 @@
+{
+  "expected_method": "GET",
+  "group": "{{context.group}}",
+  "api": "{{context.api}}"
+}

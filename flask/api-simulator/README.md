@@ -11,7 +11,8 @@ curl http://localhost:5000/mock-api/test -H 'Accept: application/xml'
 
 docker stop api-simulator
 docker run -d --name api-simulator --rm -p 5000:5000 -v $PWD/resp-body:/www/templates jianshao/api-simulator:$image_ver
-curl http://localhost:5000/test-group/test
+curl http://localhost:5000/test
+curl http://localhost:5000/test/mockit
 
 kubectl -nsimulator delete cm root-resp-body
 kubectl -nsimulator create cm root-resp-body --from-file=resp-body/
